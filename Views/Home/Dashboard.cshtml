@@ -1,0 +1,41 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var usuario = HttpContextAccessor.HttpContext?.Session.GetString("Usuario");
+}
+
+<h2>Bienvenido, @usuario</h2>
+<p>Resumen de tu sistema de inventario.</p>
+
+<div class="main-content">
+    <div class="card">
+        <h3>Bienvenido, @ViewBag.Usuario</h3>
+        <p>Resumen de tu sistema de inventario.</p>
+    </div>
+
+    <div class="card stat-box">
+        <div class="stat">
+            <span>Productos</span>
+            <strong>63</strong>
+        </div>
+        <div class="stat">
+            <span>Stock total</span>
+            <strong>2761</strong>
+        </div>
+        <div class="stat">
+            <span>Valor estimado</span>
+            <strong>$2.894.457</strong>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Últimos movimientos</h3>
+        <ul>
+            <li>Entrada de 35 camisas - 12/04/2025</li>
+            <li>Salida de 20 pantalones - 10/04/2025</li>
+            <li>Entrada de 18 abrigos - 09/04/2025</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var routeData = Context.Request.RouteValues;
+    var controller = routeData["controller"]?.ToString()?.ToLower();
+    var action = routeData["action"]?.ToString()?.ToLower();
+    var isLogin = controller == "login" && action == "index";
+    var rol = HttpContextAccessor.HttpContext.Session.GetString("Role");
+    var usuario = HttpContextAccessor.HttpContext.Session.GetString("Usuario");
+    
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CoreSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CoreSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1e293b;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            color: white;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #334155;
+            padding-left: 10px;
+            transition: all 0.2s;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color:rgb(10, 35, 60);
+        }
+
+        .logout {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+    @if (!isLogin)
+    {
+        <div class="sidebar">
+            <h2><i class="bi bi-box"></i> CoreSystem</h2>
+            <p><i class="bi bi-person-circle"></i> @usuario</p>
+
+            @if (rol == "Administrador")
+            {
+                <a asp-controller="Inventario" asp-action="Index"><i class="bi bi-box-seam"></i> Inventario</a>
+                <a asp-controller="Usuarios" asp-action="Index"><i class="bi bi-people-fill"></i> Usuarios</a>
+                <a asp-controller="Consulta" asp-action="Index"><i class="bi bi-bar-chart-line-fill"></i> Consulta</a>
+                <a asp-controller="Facturacion" asp-action="Index"><i class="bi bi-bar-chart-line-fill"></i> Facturacion</a>
+            }
+            else if (rol == "Vendedor")
+            {
+                <a asp-controller="Inventario" asp-action="Index"><i class="bi bi-clipboard-data-fill"></i> Inventario</a>
+                <a asp-controller="Facturacion" asp-action="Index"><i class="bi bi-receipt-cutoff"></i> Facturación</a>
+            }
+            else if (rol == "Supervisora de Inventario")
+            {
+                <a asp-controller="Inventario" asp-action="Index"><i class="bi bi-clipboard-data"></i> Inventario</a>
+            }
+            <a asp-controller="Home" asp-action="Logout" class="logout"><i class="bi bi-box-arrow-left"></i> Cerrar Sesión</a>
+        </div>
+   
+    }
+
+    <div class="content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+        <footer class="border-top footer text-muted mt-5">
+            <div class="container">
+                &copy; 2025 - CoreSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

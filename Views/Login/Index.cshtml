@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="login-container">
+    <div class="empresa-header">
+        <i class="bi bi-box empresa-logo"></i>
+        <span class="empresa-nombre">CoreSystem</span>
+    </div>
+
+
+    <form method="post">
+        <label>Usuario:</label>
+        <input type="text" name="username" required />
+
+        <label>Contraseña:</label>
+        <input type="password" name="password" required />
+
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    @if (ViewBag.Error != null)
+    {
+        <p id="error-msg">@ViewBag.Error</p>
+    }
+</div>
