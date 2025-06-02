@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Inventario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Inventario</h2>
+
+    <a asp-controller="Inventario" asp-action="Entrada" class="btn btn-secondary">
+    <i class="bi bi-plus-square"></i> Nueva Entrada
+    </a>
+    <a asp-controller="Productos" asp-action="Index" class="btn btn-primary">
+        <i class="bi bi-clipboard-data"></i> Ver Inventario
+    </a>
+
+
+@* Aquí debajo puedes mostrar la tabla de productos *@

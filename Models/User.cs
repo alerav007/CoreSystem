@@ -1,6 +1,6 @@
 // Models/User.cs
 using System.ComponentModel.DataAnnotations;
-
+using System.Collections.Generic;
 namespace CoreSystem.Models
 {
     public class User

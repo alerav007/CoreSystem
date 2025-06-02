@@ -334,3 +334,4 @@ C:\Users\luisr\Downloads\CoreSystem\obj\Debug\net8.0\refint\CoreSystem.dll
 C:\Users\luisr\Downloads\CoreSystem\obj\Debug\net8.0\CoreSystem.pdb
 C:\Users\luisr\Downloads\CoreSystem\obj\Debug\net8.0\CoreSystem.genruntimeconfig.cache
 C:\Users\luisr\Downloads\CoreSystem\obj\Debug\net8.0\ref\CoreSystem.dll
+C:\Users\luisr\Downloads\CoreSystem\obj\Debug\net8.0\CoreSystem.sourcelink.json
