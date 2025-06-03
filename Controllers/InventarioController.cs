@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using CoreSystem.Data;
 
 namespace CoreSystem.Controllers
@@ -17,11 +16,10 @@ namespace CoreSystem.Controllers
         {
             return View();
         }
-
-        public IActionResult Entrada()
-        {
-            ViewBag.Productos = new SelectList(_context.Productos, "IdProducto", "Nombre");
-            return View();
-        }
+        public IActionResult VerInventario()
+{
+      var productos = _context.Productos.ToList();
+    return View("~/Views/Inventario/VerInventario.cshtml", productos);
+}
     }
 }

@@ -3,14 +3,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <h2>Inventario</h2>
 
-    <a asp-controller="Inventario" asp-action="Entrada" class="btn btn-secondary">
+<a asp-controller="Entradas" asp-action="Create" class="btn btn-secondary">
     <i class="bi bi-plus-square"></i> Nueva Entrada
-    </a>
-    <a asp-controller="Productos" asp-action="Index" class="btn btn-primary">
-        <i class="bi bi-clipboard-data"></i> Ver Inventario
-    </a>
+</a>
+
+<a asp-controller="Inventario" asp-action="VerInventario" class="btn btn-primary">
+    <i class="bi bi-clipboard-data"></i> Ver Inventario
+</a>
 
 
 @* Aquí debajo puedes mostrar la tabla de productos *@

@@ -16,19 +16,21 @@ namespace CoreSystem.Controllers
             _context = context;
         }
 
-        // Muestra la lista de entradas
+        // Muestra todas las entradas
         public IActionResult Index()
         {
             var entradas = _context.Entradas.ToList();
             return View(entradas);
         }
 
+        // Muestra el formulario para registrar nueva entrada
         public IActionResult Create()
         {
             ViewBag.Productos = new SelectList(_context.Productos, "IdProducto", "Nombre");
-            return View();
+            return View("~/Views/Inventario/Entrada.cshtml");
         }
 
+        // Procesa la entrada enviada
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Entrada entrada)
@@ -37,7 +39,6 @@ namespace CoreSystem.Controllers
             {
                 _context.Entradas.Add(entrada);
 
-                // Actualiza stock en Productos
                 var producto = await _context.Productos.FindAsync(entrada.IdProducto);
                 if (producto != null)
                 {
@@ -45,11 +46,12 @@ namespace CoreSystem.Controllers
                 }
 
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Entrada registrada exitosamente.";
                 return RedirectToAction("Index", "Entradas");
             }
 
             ViewBag.Productos = new SelectList(_context.Productos, "IdProducto", "Nombre", entrada.IdProducto);
-            return View(entrada);
+            return View("~/Views/Inventario/Entrada.cshtml");
         }
     }
 }

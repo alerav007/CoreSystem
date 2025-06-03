@@ -1,35 +1,52 @@
 @model CoreSystem.Models.Entrada
 @{
-    ViewData["Title"] = "Agregar Entrada";
+    ViewData["Title"] = "Registrar Entrada";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Agregar Entrada</h2>
+<h2>Registrar Entrada</h2>
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="IdProducto"></label>
-        <select asp-for="IdProducto" class="form-control" asp-items="ViewBag.Productos"></select>
+<form asp-action="Create" asp-controller="Entradas" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="IdProducto" class="form-label">Producto</label>
+        <select asp-for="IdProducto" class="form-select" asp-items="ViewBag.Productos">
+            <option value="">-- Seleccione un producto --</option>
+        </select>
         <span asp-validation-for="IdProducto" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Cantidad"></label>
-        <input asp-for="Cantidad" class="form-control" />
+
+    <div class="mb-3">
+        <label asp-for="Cantidad" class="form-label">Cantidad</label>
+        <input asp-for="Cantidad" class="form-control" type="number" min="1" />
         <span asp-validation-for="Cantidad" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PrecioCompra"></label>
-        <input asp-for="PrecioCompra" class="form-control" />
+
+    <div class="mb-3">
+        <label asp-for="PrecioCompra" class="form-label">Precio de Compra</label>
+        <input asp-for="PrecioCompra" class="form-control" type="number" step="0.01" min="0" />
         <span asp-validation-for="PrecioCompra" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="FechaEntrada"></label>
+
+    <div class="mb-3">
+        <label asp-for="FechaEntrada" class="form-label">Fecha</label>
         <input asp-for="FechaEntrada" class="form-control" type="date" />
         <span asp-validation-for="FechaEntrada" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Observaciones"></label>
-        <input asp-for="Observaciones" class="form-control" />
+
+    <div class="mb-3">
+        <label asp-for="Observaciones" class="form-label">Observaciones</label>
+        <textarea asp-for="Observaciones" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Observaciones" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-success">Guardar</button>
+
+    <button type="submit" class="btn btn-success">
+        <i class="bi bi-check-circle"></i> Registrar Entrada
+    </button>
+    <a asp-action="Index" asp-controller="Entradas" class="btn btn-secondary">Cancelar</a>
 </form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
